@@ -12,18 +12,18 @@ O TCC não se limitará ao desenvolvimento técnico, mas também incluirá uma *
 
 A contratação de serviços locais no Brasil ainda é marcada por ineficiências e riscos, como a dependência de indicações informais e a falta de padronização. Isso gera:
 
-* **Assimetria de Informação:** Dificuldade do cliente em verificar a qualificação e o histórico do profissional.
-* **Fricção no Processo de Orçamento:** O cliente precisa contatar múltiplos profissionais, resultando em um processo lento e frustrante.
-* **Risco de Segurança:** Ausência de mecanismos de verificação de antecedentes e de mediação de conflitos.
+*   **Assimetria de Informação:** Dificuldade do cliente em verificar a qualificação e o histórico do profissional.
+*   **Fricção no Processo de Orçamento:** O cliente precisa contatar múltiplos profissionais, resultando em um processo lento e frustrante.
+*   **Risco de Segurança:** Ausência de mecanismos de verificação de antecedentes e de mediação de conflitos.
 
 ### 2.2. Solução Proposta (ServiFy)
 
 O ServiFy será a plataforma centralizada que resolve esses problemas através de:
 
-* **Algoritmo de *Matching* Otimizado:** Conexão inteligente baseada em categoria, localização e reputação do profissional.
-* **Mecanismos de Confiança:** Perfis detalhados, selos de verificação documental e histórico de avaliações.
-* **Fluxo de Proposta Simplificado:** Sistema padronizado de envio e aceitação de propostas.
-* **Centralização e Gestão:** Solicitações, propostas, comunicação via *chat* e, futuramente, pagamentos.
+*   **Algoritmo de *Matching* Otimizado:** Conexão inteligente baseada em categoria, localização e reputação do profissional.
+*   **Mecanismos de Confiança:** Perfis detalhados, selos de verificação documental e histórico de avaliações.
+*   **Fluxo de Proposta Simplificado:** Sistema padronizado de envio e aceitação de propostas.
+*   **Centralização e Gestão:** Solicitações, propostas, comunicação via *chat* e, futuramente, pagamentos.
 
 ### 2.3. Público-Alvo e Análise de Mercado
 
@@ -110,20 +110,102 @@ A arquitetura será baseada em **Microsserviços** (iniciando como Monolito Modu
 
 ### 6.1. Estrutura do Trabalho Científico
 
-1. Introdução  
-2. Referencial Teórico  
-3. Metodologia de Desenvolvimento  
-4. Análise e Projeto  
-5. Implementação e Resultados  
-6. Conclusão  
+1. Introdução
+2. Referencial Teórico
+3. Metodologia de Desenvolvimento
+4. Análise e Projeto
+5. Implementação e Resultados
+6. Conclusão
 
 ### 6.2. Metodologia de Desenvolvimento
 
-* Abordagem Ágil (Scrum/Kanban).  
-* Ferramentas: Trello ou Jira.  
-* **Fases do MVP:**  
-  1. Configuração e Prototipagem  
-  2. Desenvolvimento do Back-end  
-  3. Desenvolvimento Web/Mobile  
-  4. Integração e Testes  
+*   Abordagem Ágil (Scrum/Kanban).
+*   Ferramentas: Trello ou Jira.
+*   **Fases do MVP:**
+    1. Configuração e Prototipagem
+    2. Desenvolvimento do Back-end
+    3. Desenvolvimento Web/Mobile
+    4. Integração e Testes
 
+---
+
+## 7. Mapa de Telas (Wireframe de Navegação)
+
+O mapa de telas a seguir define o fluxo de navegação principal para o MVP, dividindo as interfaces por perfil de usuário e plataforma (Web e Android).
+
+### 7.1. Fluxo Comum (Web e Android)
+
+| ID | Tela | Plataforma | Descrição | Próximas Telas |
+| :--- | :--- | :--- | :--- | :--- |
+| **T01** | Landing Page / Home | Web | Apresentação do ServiFy, busca de serviços, CTA para Cadastro/Login. | T02, T03, T04 |
+| **T02** | Cadastro | Web/Android | Formulário de registro (Cliente ou Profissional). | T04, T05, T06 |
+| **T03** | Login | Web/Android | Autenticação de usuário. | T05 (Cliente), T06 (Profissional) |
+| **T04** | Busca de Serviços | Web/Android | Campo de busca por categoria/palavra-chave e localização. | T05.1 |
+
+### 7.2. Fluxo Cliente
+
+| ID | Tela | Plataforma | Descrição | Próximas Telas |
+| :--- | :--- | :--- | :--- | :--- |
+| **T05** | Dashboard Cliente | Web/Android | Resumo de solicitações ativas, propostas recebidas e status. | T05.1, T05.2, T05.3, T05.4 |
+| **T05.1** | Criar Solicitação | Web/Android | Formulário detalhado (título, descrição, categoria, anexos). | T05 |
+| **T05.2** | Detalhe da Solicitação | Web/Android | Status, lista de propostas recebidas. | T05.3, T05.4 |
+| **T05.3** | Detalhe da Proposta | Web/Android | Visualização da proposta do profissional, perfil do profissional, botão Aceitar/Rejeitar. | T05.4 |
+| **T05.4** | Chat Integrado | Web/Android | Comunicação em tempo real com o profissional após aceitar a proposta. | T05.5 |
+| **T05.5** | Avaliação do Serviço | Web/Android | Formulário de nota (1-5) e comentário após conclusão. | T05 |
+
+### 7.3. Fluxo Profissional
+
+| ID | Tela | Plataforma | Descrição | Próximas Telas |
+| :--- | :--- | :--- | :--- | :--- |
+| **T06** | Dashboard Profissional | Web/Android | Resumo de leads (novas solicitações), propostas enviadas e reputação. | T06.1, T06.2, T06.3, T06.4 |
+| **T06.1** | Gestão de Perfil | Web/Android | Edição de dados, portfólio, raio de atendimento e serviços oferecidos. | T06 |
+| **T06.2** | Lista de Leads | Web/Android | Novas solicitações de serviço que correspondem ao perfil. | T06.3 |
+| **T06.3** | Detalhe do Lead | Web/Android | Descrição completa da solicitação do cliente. Botão "Enviar Proposta". | T06.4 |
+| **T06.4** | Envio de Proposta | Web/Android | Formulário para definir valor, prazo e mensagem personalizada. | T06 |
+| **T06.5** | Histórico de Serviços | Web/Android | Lista de serviços concluídos e em andamento. | T06.6 |
+| **T06.6** | Detalhe da Avaliação | Web/Android | Visualização das avaliações recebidas. | T06 |
+
+---
+
+## 8. Checklist Inicial de Desenvolvimento (MVP)
+
+Este checklist serve como um guia para as primeiras tarefas a serem executadas, divididas por área técnica, alinhadas com a **Fase 1: Configuração e Prototipagem** e o início da **Fase 2: Desenvolvimento do Back-end** da metodologia ágil.
+
+### 8.1. Back-end (API - Python/Flask + MySQL)
+
+| Status | Tarefa | Detalhe |
+| :--- | :--- | :--- |
+| [ ] | **Configuração do Ambiente** | Instalar Python, Flask, MySQL e ferramentas de desenvolvimento (IDE). |
+| [ ] | **Inicialização do Projeto** | Criar a estrutura básica do projeto Flask e configurar o ambiente virtual. |
+| [ ] | **Configuração do Banco de Dados** | Instalar e configurar o MySQL. Definir e aplicar as migrações iniciais (tabelas Usuário, Serviço, Solicitação). |
+| [ ] | **Autenticação (JWT)** | Implementar o módulo de registro e login de usuários com geração e validação de tokens JWT. |
+| [ ] | **CRUD de Usuários** | Desenvolver endpoints básicos para criação, leitura, atualização e exclusão de perfis (Cliente e Profissional). |
+| [ ] | **Documentação (Swagger)** | Configurar o Swagger/OpenAPI para documentar os primeiros endpoints de autenticação. |
+| [ ] | **Containerização (Docker)** | Criar o `Dockerfile` e o `docker-compose.yml` para o Back-end e o Banco de Dados. |
+
+### 8.2. Front-end Web (React)
+
+| Status | Tarefa | Detalhe |
+| :--- | :--- | :--- |
+| [ ] | **Configuração do Projeto** | Inicializar o projeto React (CRA ou Vite) e configurar rotas básicas. |
+| [ ] | **Design System Básico** | Definir paleta de cores, tipografia e componentes reutilizáveis (botões, inputs). |
+| [ ] | **Página de Login/Cadastro** | Desenvolver as interfaces T02 e T03 e integrar com os endpoints de autenticação do Back-end. |
+| [ ] | **Layout Responsivo** | Garantir que o layout base seja funcional em dispositivos móveis (Requisito Não Funcional de Usabilidade). |
+
+### 8.3. Mobile Android (Kotlin + Jetpack Compose)
+
+| Status | Tarefa | Detalhe |
+| :--- | :--- | :--- |
+| [ ] | **Configuração do Projeto** | Criar o projeto Android no Android Studio com Kotlin e Jetpack Compose. |
+| [ ] | **Estrutura de Telas** | Implementar as telas T02 e T03 (Login/Cadastro) com navegação básica. |
+| [ ] | **Integração com API** | Configurar uma biblioteca HTTP (ex: Retrofit) para comunicação com o Back-end. |
+| [ ] | **Teste de Conexão** | Testar o fluxo de Login/Cadastro no emulador ou dispositivo físico. |
+
+### 8.4. Documentação e Metodologia (TCC)
+
+| Status | Tarefa | Detalhe |
+| :--- | :--- | :--- |
+| [ ] | **Estrutura do TCC** | Criar o documento base do TCC com os títulos das seções (Capítulos 1 a 6). |
+| [ ] | **Referencial Teórico** | Iniciar a pesquisa bibliográfica sobre Marketplaces, UX/UI e Arquitetura de Microsserviços. |
+| [ ] | **Ferramenta Ágil** | Configurar o Trello/Jira com as colunas (To Do, Doing, Done) e adicionar as tarefas deste checklist. |
+| [ ] | **Revisão do Escopo** | Apresentar o escopo atualizado (incluindo o Mapa de Telas e o Checklist) ao orientador para validação. |

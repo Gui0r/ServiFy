@@ -107,7 +107,6 @@ O modelo de dados inicial (MVP) será focado nas entidades centrais do marketpla
 | :--- | :--- | :--- |
 | **Performance** | Tempo de Resposta | API deve responder em menos de 500ms para 90% das requisições. |
 | **Segurança** | Proteção de Dados | Criptografia de senhas (hashing) e uso de HTTPS obrigatório. |
-| **Escalabilidade** | Arquitetura | Estrutura modular para permitir a migração futura para microsserviços e suportar picos de tráfego. |
 | **Usabilidade** | Design Responsivo | O Painel Web deve ser totalmente funcional em dispositivos móveis (além do app nativo). |
 | **Manutenibilidade** | Padrões de Código | Uso de *linters* e testes unitários para garantir a qualidade do código. |
 

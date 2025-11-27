@@ -2,7 +2,7 @@
   "name": "ServiFy Dev Container",
   "dockerComposeFile": "docker-compose.yml",
   "service": "api",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/workspaces/ServiFy",
 
   "customizations": {
     "vscode": {

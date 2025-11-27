@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ..:/workspace:cached
+      - ..:/workspaces/ServiFy
     command: sleep infinity
     ports:
       - "5000:5000"

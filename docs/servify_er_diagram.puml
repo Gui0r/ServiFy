@@ -1,0 +1,123 @@
+@startuml
+skinparam linetype ortho
+
+title Diagrama Entidade-Relacionamento - ServiFy
+
+entity usuarios {
+  * id : INT <<PK>>
+  --
+  nome : VARCHAR(120)
+  email : VARCHAR(150) <<Unique>>
+  senha_hash : VARCHAR(255)
+  telefone : VARCHAR(30)
+  tipo : ENUM('cliente', 'profissional', 'admin')
+  criado_em : TIMESTAMP
+}
+
+entity profissionais {
+  * id : INT <<PK>>
+  --
+  * usuario_id : INT <<FK>>
+  biografia : TEXT
+  nota_media : DECIMAL(3,2)
+  raio_atendimento_km : INT
+}
+
+entity categorias {
+  * id : INT <<PK>>
+  --
+  nome : VARCHAR(100) <<Unique>>
+}
+
+entity subcategorias {
+  * id : INT <<PK>>
+  --
+  * categoria_id : INT <<FK>>
+  nome : VARCHAR(120)
+}
+
+entity servicos {
+  * id : INT <<PK>>
+  --
+  * profissional_id : INT <<FK>>
+  * subcategoria_id : INT <<FK>>
+  descricao : TEXT
+  preco_base : DECIMAL(10,2)
+}
+
+entity solicitacoes {
+  * id : INT <<PK>>
+  --
+  * cliente_id : INT <<FK>>
+  * categoria_id : INT <<FK>>
+  titulo : VARCHAR(150)
+  descricao : TEXT
+  localizacao : VARCHAR(255)
+  status : ENUM(...)
+  criado_em : TIMESTAMP
+}
+
+entity propostas {
+  * id : INT <<PK>>
+  --
+  * solicitacao_id : INT <<FK>>
+  * profissional_id : INT <<FK>>
+  valor : DECIMAL(10,2)
+  prazo_dias : INT
+  mensagem : TEXT
+  status : ENUM(...)
+  criado_em : TIMESTAMP
+}
+
+entity mensagens {
+  * id : INT <<PK>>
+  --
+  * proposta_id : INT <<FK>>
+  * remetente_id : INT <<FK>>
+  conteudo : TEXT
+  enviado_em : TIMESTAMP
+}
+
+entity avaliacoes {
+  * id : INT <<PK>>
+  --
+  * solicitacao_id : INT <<FK>> <<Unique>>
+  * cliente_id : INT <<FK>>
+  * profissional_id : INT <<FK>>
+  nota : TINYINT
+  comentario : TEXT
+  criado_em : TIMESTAMP
+}
+
+entity notificacoes {
+  * id : INT <<PK>>
+  --
+  * usuario_id : INT <<FK>>
+  titulo : VARCHAR(150)
+  mensagem : TEXT
+  tipo : ENUM(...)
+  lida : BOOLEAN
+  criado_em : TIMESTAMP
+}
+
+' Relacionamentos
+usuarios ||--o{ profissionais : é_um
+usuarios ||--o{ solicitacoes : faz
+usuarios ||--o{ notificacoes : recebe
+usuarios ||--o{ mensagens : envia
+
+profissionais ||--o{ servicos : oferece
+profissionais ||--o{ propostas : envia
+profissionais ||--o{ avaliacoes : recebe
+
+categorias ||--o{ subcategorias : possui
+categorias ||--o{ solicitacoes : pertence_a
+
+subcategorias ||--o{ servicos : detalha
+
+solicitacoes ||--o{ propostas : recebe
+solicitacoes ||--o| avaliacoes : é_avaliada_por
+
+propostas ||--o{ mensagens : tem
+
+@enduml

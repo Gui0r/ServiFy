@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Serviço de Banco de Dados MySQL
+  db:
+    image: mysql:8.0
+    container_name: servify_db
+    restart: always
+    environment:
+      # Variáveis de ambiente para o MySQL
+      MYSQL_ROOT_PASSWORD: root_password_secure # Mude para uma senha forte em produção
+      MYSQL_DATABASE: servify
+      MYSQL_USER: servify_user
+      MYSQL_PASSWORD: servify_password_secure # Mude para uma senha forte em produção
+    ports:
+      # Porta exposta para acesso externo (opcional, pode ser removida em produção)
+      - "3306:3306"
+    volumes:
+      # Volume para persistência dos dados do banco
+      - db_data:/var/lib/mysql
+      # Mapeia o arquivo .sql para inicializar o banco de dados na primeira execução
+      - ./servify_schema.sql:/docker-entrypoint-initdb.d/servify_schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "servify_user", "-p$$MYSQL_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Serviço da API Flask
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile # Assumindo que você terá um Dockerfile na raiz do projeto
+    container_name: servify_api
+    restart: always
+    # O comando de inicialização dependerá do seu Dockerfile e estrutura de pastas
+    # Exemplo: command: gunicorn -w 4 -b 0.0.0.0:5000 app:app
+    volumes:
+      # Mapeia o diretório local para o container para desenvolvimento
+      - .:/app
+    ports:
+      - "5000:5000"
+    environment:
+      # Variável de ambiente para a string de conexão do Flask-SQLAlchemy
+      # O hostname 'db' é o nome do serviço do banco de dados no docker-compose
+      DATABASE_URL: mysql+pymysql://servify_user:servify_password_secure@db/servify
+    depends_on:
+      db:
+        condition: service_healthy # Garante que o banco de dados esteja pronto antes de iniciar a API
+
+volumes:
+  db_data:

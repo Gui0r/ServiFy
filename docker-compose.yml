@@ -19,7 +19,7 @@ services:
       # Volume para persistência dos dados do banco
       - db_data:/var/lib/mysql
       # Mapeia o arquivo .sql para inicializar o banco de dados na primeira execução
-      - ./servify_schema.sql:/docker-entrypoint-initdb.d/servify_schema.sql
+      - ./db/servify_schema.sql:/docker-entrypoint-initdb.d/servify_schema.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "servify_user", "-p$$MYSQL_PASSWORD"]
       interval: 10s
